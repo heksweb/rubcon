@@ -1,0 +1,39 @@
+web:
+  image: heksweb/nginx:latest
+  restart: always
+  volumes:
+   - ./nginx/app.conf:/etc/nginx/conf.d/app.conf
+   - ./app/:/var/www/html/
+  ports:
+   - "80:80"
+  links:
+    - "php"
+
+php:
+  image: heksweb/php-fpm:1.0
+  restart: always
+  volumes:
+     - ./app/:/var/www/html/
+     - ./php/php.ini:/usr/local/etc/php/php.ini
+  links:
+    - "mysqldb:mysql"
+
+composer:
+    image: heksweb/composer:1.0
+    volumes:
+        - ./app/site/:/app/
+    command: install
+
+mysqldb:
+  image: heksweb/mysql:5.7
+  container_name: mysqldb
+  restart: always
+  ports:
+      - "3306:3306"
+  volumes:
+      - ./data/:/var/lib/mysql/
+  environment:
+      - MYSQL_DATABASE=rubicon
+      - MYSQL_ROOT_PASSWORD=qwerty
+      - MYSQL_USER=rubicon
+      - MYSQL_PASSWORD=qwerty
