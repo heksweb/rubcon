@@ -7,6 +7,7 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
+use frontend\widgets\contact\ContactWidget;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
@@ -59,8 +60,8 @@ AppAsset::register($this);
     ]);
     NavBar::end();
     ?>
-
     <div class="container">
+        <?= ContactWidget::widget() ?>
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
