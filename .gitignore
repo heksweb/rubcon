@@ -1,3 +1,5 @@
 # mysql data dir
 /data
 
+# phpstorm project files
+.idea
